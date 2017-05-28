@@ -1,0 +1,137 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="shared-styles.html">
+
+<link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../bower_components/app-layout/app-box/app-box.html">
+<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/neon-animation/demo/doc/my-dialog.html">
+
+
+<dom-module id="random-name">
+  <template>
+  <style is="custom-style">
+      body {
+        margin: 0;
+        font-family: 'Roboto', 'Noto', sans-serif;
+        background-color: #0453;
+      }
+      app-box {
+        height: 640px;
+        --app-box-background-front-layer: {
+          background-image: url(//app-layout-assets.appspot.com/assets/bg2.jpg);
+          background-position: bottom;
+          padding-bottom: 10px;
+          margin-top: 0px;
+          height: 100%;
+        };
+      }
+      #gen {
+        margin-left: 50%;
+        color: purple;
+      }
+      .second {
+        --app-box-background-front-layer: {
+          background-image: url(//app-layout-assets.appspot.com/assets/bg2.jpg);
+          background-position: bottom;
+          padding-bottom: 10px;
+          margin-top: -20px;
+          height: 100%;
+        };
+      }
+      .third {
+        --app-box-background-front-layer: {
+          background-image: url(//app-layout-assets.appspot.com/assets/bg3.jpg);
+          background-position: bottom;
+          padding-bottom: 120px;
+          margin-top: -20px;
+          height: 100%;
+        };
+      }
+      .fourth {
+        --app-box-background-front-layer: {
+          background-image: url(//app-layout-assets.appspot.com/assets/bg4.jpg);
+          background-position: bottom;
+          padding-bottom: 120px;
+          margin-top: -20px;
+          height: 100%;
+        };
+      }
+      article {
+        font-weight: 100;
+        text-align: left;
+        margin: 100px auto;
+      }
+      article h2 {
+        font-weight: 100;
+        font-size: 50px;
+        text-align: left;
+        margin: 5px;
+      }
+      article p {
+        font-size: 18px;
+        line-height: 30px;
+        text-align: left;
+      }
+      article hr {
+        width: 777px;
+        height: 12px;
+        border: none;
+        background-color: purple;
+        margin-left:0
+      }
+  </style>
+    <iron-ajax
+      id="ajax"
+      url=""
+      handle-as="json"
+      on-response="hresponse"
+      debounce-duration="300">
+  </iron-ajax>
+
+<a id="home" href="/home"><paper-button raised>home</paper-button></a>
+    <section>
+     <article>
+       <hr />
+       <h2>Random Name Generator</h2>
+       <p>One of my favorite apsects of software testing is generating random names</p>
+     </article>
+     <!--
+       This app-box uses the class `.second` and the mixin `--app-box-background-front-layer` to assign the background image.
+     -->
+     <paper-button raised noink on-click="setajax" id = "gen">Generate</paper-button>
+    </section>
+
+<my-dialog id="namecard">{{ggh}}</my-dialog>
+
+  </template>
+
+  <script>
+    Polymer({
+      is: 'random-name',
+
+      setajax: function () {
+        this.$.ajax.url = "https://iojkn.com/api/name/random";
+        this.$.ajax.params = {"userId":"1"};
+        this.$.ajax.generateRequest();
+      },
+  hresponse: function(request) {
+    console.log(request.detail.response);
+    console.log(this.$.ajax.lastResponse);
+    this.ggh = request.detail.response.first;
+    this.$.namecard.show();
+  }
+
+    });
+  </script>
+</dom-module>

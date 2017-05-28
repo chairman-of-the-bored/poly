@@ -1,0 +1,133 @@
+<html><head><link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="shared-styles.html">
+
+<link rel="import" href="../bower_components/paper_fab.html">
+<link rel="import" href="../bower_components/app-layout/app-box/app-box.html">
+<link rel="import" href="../bower_components/app_layout/app_scroll_effects/effects/parallax_background.html">
+
+</head><body><dom-module id="iojkn-page">
+  <template>
+  <style is="custom-style">
+      body {
+        margin: 0;
+        font-family: 'Roboto', 'Noto', sans-serif;
+        background-color: #0453;
+      }
+      app-box {
+        height: 640px;
+        --app-box-background-front-layer: {
+          background-image: url(../images/bak1.jpg);
+          background-position: bottom;
+          padding-bottom: 120px;
+          margin-top: -20px;
+          height: 100%;
+        };
+      }
+      paper-fab {
+        position: fixed;
+        left: 16px;
+        top: 16px;
+        --paper-fab-background: purple;
+        --paper-fab-keyboard-focus-background: #EFDB2B;
+        color: red;
+      }
+      .second {
+        --app-box-background-front-layer: {
+          background-image: url(../images/bak2.jpg);
+          background-position: bottom;
+          padding-bottom: 120px;
+          margin-top: -20px;
+          height: 100%;
+        };
+      }
+      .third {
+        --app-box-background-front-layer: {
+          background-image: url(../images/bak3.jpg);
+          background-position: bottom;
+          padding-bottom: 120px;
+          margin-top: -20px;
+          height: 100%;
+        };
+      }
+      .fourth {
+        --app-box-background-front-layer: {
+          background-image: url(../images/bak4.jpg);
+          background-position: bottom;
+          padding-bottom: 120px;
+          margin-top: -20px;
+          height: 100%;
+        };
+      }
+      article {
+        font-weight: 100;
+        text-align: center;
+        margin: 100px auto;
+      }
+      article h2 {
+        font-weight: 100;
+        font-size: 50px;
+        text-align: center;
+        margin: 5px;
+      }
+      article p {
+        font-size: 18px;
+        line-height: 30px;
+        text-align: center;
+      }
+      article hr {
+        width: 777px;
+        height: 12px;
+        border: none;
+        background-color: purple;
+        text-align: center;
+      }
+  </style>
+
+
+
+<paper-fab icon="add" class="label" label="😻"></paper-fab>
+
+<section>
+ <article>
+   <hr>
+   <h2>IOJKN</h2>
+   <p>IOJKN is a place for projects, programming languages, and ideas.</p>
+ </article>
+ <app-box effects="parallax-background">
+   
+
+ </app-box>
+</section>
+
+<section>
+ <article>
+   <hr>
+   <h2>Projects</h2>
+   <p>Things that dont work yet but are still considered awesome</p>
+ </article>
+ 
+ <app-box class="second" effects="parallax-background"></app-box>
+</section>
+
+<section>
+ <article>
+   <hr>
+   <h2>Programming Languages</h2>
+   <p>Where would we be without them.</p>
+ </article>
+ <app-box class="third" effects="parallax-background"></app-box>
+</section>
+
+<section>
+ <article>
+   <hr>
+   <h2>Keep Scrolling</h2>
+   <p>The good stuff is at the bottom.</p>
+ </article>
+ <app-box class="fourth" effects="parallax-background"></app-box>
+</section>
+  </template>
+
+  <script>Polymer({is:"iojkn-page"});</script>
+</dom-module>
+</body></html>
