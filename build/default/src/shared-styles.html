@@ -1,0 +1,117 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+--><link rel="import" href="../bower_components/polymer/polymer.html">
+
+<!-- shared styles for all views -->
+<dom-module id="shared-styles">
+  <template>
+    <style>
+      .card {
+        margin: 24px;
+        padding: 16px;
+        color: #757575;
+        border-radius: 5px;
+        background-color: #fff;
+        box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+      }
+
+      .circle {
+        display: inline-block;
+        width: 64px;
+        height: 64px;
+        text-align: center;
+        color: #555;
+        border-radius: 50%;
+        background: #ddd;
+        font-size: 30px;
+        line-height: 64px;
+      }
+
+      h1 {
+        margin: 16px 0;
+        color: #212121;
+        font-size: 22px;
+      }
+          body {
+            margin: 0;
+            font-family: 'Roboto', 'Noto', sans-serif;
+            background-color: #0453;
+          }
+          app-box {
+            height: 640px;
+            --app-box-background-front-layer: {
+              background-image: url(//app-layout-assets.appspot.com/assets/bg2.jpg);
+              background-position: bottom;
+              padding-bottom: 120px;
+              margin-top: -20px;
+              height: 100%;
+            };
+          }
+          paper-fab {
+            position: fixed;
+            left: 16px;
+            top: 16px;
+            --paper-fab-background: purple;
+            --paper-fab-keyboard-focus-background: #EFDB2B;
+            color: red;
+          }
+          .second {
+            --app-box-background-front-layer: {
+              background-image: url(//app-layout-assets.appspot.com/assets/bg2.jpg);
+              background-position: bottom;
+              padding-bottom: 120px;
+              margin-top: -20px;
+              height: 100%;
+            };
+          }
+          .third {
+            --app-box-background-front-layer: {
+              background-image: url(//app-layout-assets.appspot.com/assets/bg3.jpg);
+              background-position: bottom;
+              padding-bottom: 120px;
+              margin-top: -20px;
+              height: 100%;
+            };
+          }
+          .fourth {
+            --app-box-background-front-layer: {
+              background-image: url(//app-layout-assets.appspot.com/assets/bg4.jpg);
+              background-position: bottom;
+              padding-bottom: 120px;
+              margin-top: -20px;
+              height: 100%;
+            };
+          }
+          article {
+            font-weight: 100;
+            text-align: center;
+            margin: 100px auto;
+          }
+          article h2 {
+            font-weight: 100;
+            font-size: 50px;
+            text-align: center;
+            margin: 5px;
+          }
+          article p {
+            font-size: 18px;
+            line-height: 30px;
+            text-align: center;
+          }
+          article hr {
+            width: 777px;
+            height: 12px;
+            border: none;
+            background-color: purple;
+            text-align: center;
+          }
+
+    </style>
+  </template>
+</dom-module>

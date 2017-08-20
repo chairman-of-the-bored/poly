@@ -1,0 +1,367 @@
+
+    function buttonFilter()
+    {
+        var buttonElements,button;
+        var name;
+
+
+        buttonElements=document.getElementsByTagName('button');
+        var i;
+        for(i=0;i<buttonElements.length;i++)
+        {
+            if(buttonElements[i].type=='submit' || buttonElements[i].type=='button'|| buttonElements[i].type=='reset')
+            {
+                if((buttonElements[i].name!=document.forms[0].buttonHit.value))
+                    buttonElements[i].disabled=1;
+                else
+                {
+//                    buttonElements[i].value=document.forms[0].buttonValue.value;
+                      name=buttonElements[i].name;
+                      buttonElements[i].name='NoUse';
+                      buttonElements[i].disabled=1;
+                }
+            }
+        }
+
+        button=document.getElementsByName('buttonValue');
+        button[0].name=name;
+        button=document.getElementsByName('buttonHit');
+        button[0].disabled=1;
+
+    }
+
+    function buttonClick(btn,value)
+    {
+
+        var button;
+        
+        button=document.getElementsByName('buttonHit');
+        button[0].value=btn.name;
+
+        button=document.getElementsByName('buttonValue');
+        button[0].value=value;
+        return true;
+    }
+
+  function clickButton(message)
+  {
+      alert(message);
+  }
+  
+  function mainOnload()
+  {
+  	
+  }
+
+
+
+  function changeCursorPointer()
+  {
+  	document.body.style.cursor='pointer';
+  }
+
+  function changeCursorDefault()
+  {
+  	document.body.style.cursor='default';
+  }
+
+
+  function iframeResize(iframe){
+alert("Enter iframeResize "+iframe);
+              if(iframe && !window.opera){
+              	
+      	          if(iframe.contentDocument && iframe.contentDocument.body.offsetHeight){      	          		
+alert('before '+iframe.height+" document "+iframe.Document.body.offsetHeight);
+                      iframe.height=iframe.contentDocument.body.offsetHeight+80;  
+alert('after '+iframe.height);
+                  }
+        	        else if(iframe.Document && iframe.Document.body.scrollHeight){
+alert('before '+iframe.style.height+" document "+iframe.Document.body.scrollHeight);
+
+      	              iframe.style.height=iframe.Document.body.scrollHeight;
+alert('after '+iframe.style.height);
+
+
+                  }
+      	      }
+alert("Exit iframeResize ");
+      
+  }
+
+function grayout_button(ButtonName)
+{
+    var selectedButton=$('#'+ButtonName);
+    var selectedButtonChildLeft = selectedButton.children(".roundleft_button");
+    var selectedButtonChildRight = selectedButton.children(".roundright_button");
+    
+    selectedButton.attr('class', 'button-rule');
+    selectedButtonChildLeft.attr('class', 'roundleft_grey');
+    selectedButtonChildRight.attr('class', 'roundright_grey');
+    
+    selectedButton[0].disabled = true;
+}
+
+function ungrayout_button(ButtonName)
+{
+    var selectedButton=$('#'+ButtonName);
+    var selectedButtonChildLeft = selectedButton.children(".roundleft_grey");
+    var selectedButtonChildRight = selectedButton.children(".roundright_grey");
+    
+    selectedButton.attr('class', 'button-grey');
+    selectedButtonChildLeft.attr('class', 'roundleft_button');
+    selectedButtonChildRight.attr('class', 'roundright_button');
+    
+    selectedButton[0].disabled = false;
+}  
+  
+function WPS_wizard_grayout()
+{
+    if(parent.$('#wps-wizard').hasClass('noSubLarge')){
+        parent.$('#wps-wizard').addClass('noSubGrayLarge');
+        parent.$('#wps-wizard').removeClass('noSub');
+        parent.$('#wps-wizard').removeClass('noSubLarge');
+    } else if(parent.$('#wps-wizard').hasClass('noSub')){
+        parent.$('#wps-wizard').addClass('noSubGray');
+        parent.$('#wps-wizard').removeClass('noSub');
+        parent.$('#wps-wizard').removeClass('noSubLarge');
+    }
+}
+
+function WPS_wizard_ungrayout()
+{
+    if(parent.$('#wps-wizard').hasClass('noSubGrayLarge')){
+        parent.$('#wps-wizard').addClass('noSubLarge');
+        parent.$('#wps-wizard').removeClass('noSubGrayLarge');
+    } else if(parent.$('#wps-wizard').hasClass('noSubGray')){
+        parent.$('#wps-wizard').addClass('noSub');
+        parent.$('#wps-wizard').removeClass('noSubGray');
+    }
+}
+
+function WDS_wizard_grayout()
+{
+    if(parent.$("#basic-int").hasClass("basic-menu-div")){
+        parent.$("#basic-int").addClass('basic-menu-div-gray');
+        parent.$("#basic-int").removeClass('basic-menu-div');
+    } 
+
+    if(parent.$('#wizard').hasClass('noSubLarge')){
+        parent.$('#wizard').addClass('noSubGrayLarge');
+        parent.$('#wizard').removeClass('noSub');
+        parent.$('#wizard').removeClass('noSubLarge');
+    } else if(parent.$('#wizard').hasClass('noSub')){
+        parent.$('#wizard').addClass('noSubGray');
+        parent.$('#wizard').removeClass('noSub');
+        parent.$('#wizard').removeClass('noSubLarge');
+    } 
+
+    parent.$('.SubMenuWDS').each(function(){  
+        if($(this).hasClass('SubMenuLarge')){
+            $(this).addClass('SubMenuLargeDisable');
+            $(this).removeClass('SubMenu');
+            $(this).removeClass('Large');
+            $(this).removeClass('SubMenuLarge');
+        }                
+        else if($(this).hasClass('SubMenu')){ 
+            $(this).addClass('SubMenuDisable');
+            $(this).removeClass('SubMenu');
+        }
+    }); 
+}
+
+function WDS_wizard_ungrayout()
+{
+    if(parent.$("#basic-int").hasClass("basic-menu-div-gray")){
+        parent.$("#basic-int").addClass('basic-menu-div');
+        parent.$("#basic-int").removeClass('basic-menu-div-gray');
+    } 
+
+    if(parent.$('#wizard').hasClass('noSubGrayLarge')){
+        parent.$('#wizard').addClass('noSubLarge');
+        parent.$('#wizard').removeClass('noSubGrayLarge');
+    } else if(parent.$('#wizard').hasClass('noSubGray')){
+        parent.$('#wizard').addClass('noSub');
+        parent.$('#wizard').removeClass('noSubGray');
+    } 
+
+    parent.$('.SubMenuWDS').each(function(){
+        if($(this).hasClass('SubMenuLargeDisable')){
+            $(this).addClass('SubMenuLarge');
+            $(this).addClass('SubMenu');
+            $(this).addClass('Large');
+            $(this).removeClass('SubMenuLargeDisable');
+        }
+        else if($(this).hasClass('SubMenuDisable')){
+            $(this).addClass('SubMenu');
+            $(this).removeClass('SubMenuDisable');
+        }
+    });
+}
+
+function ap_mode_grayout()
+{
+    if(parent.$("#basic-int").hasClass("basic-menu-div")){
+        parent.$("#basic-int").addClass('basic-menu-div-gray');
+        parent.$("#basic-int").removeClass('basic-menu-div');
+    }      
+
+    if(parent.$('#wizard').hasClass('noSubLarge')){
+        parent.$('#wizard').addClass('noSubGrayLarge');
+        parent.$('#wizard').removeClass('noSub');
+        parent.$('#wizard').removeClass('noSubLarge');
+    } else if(parent.$('#wizard').hasClass('noSub')){
+        parent.$('#wizard').addClass('noSubGray');
+        parent.$('#wizard').removeClass('noSub');
+        parent.$('#wizard').removeClass('noSubLarge');
+    } 
+
+    parent.$('.SubMenuWDS').each(function(){                
+        if($(this).hasClass('SubMenuAP')){
+            /* do nothing */
+        }
+        else if($(this).hasClass('SubMenuLarge')){
+            $(this).addClass('SubMenuLargeDisable');
+            $(this).removeClass('SubMenu');
+            $(this).removeClass('Large');
+            $(this).removeClass('SubMenuLarge');
+        }                
+        else if($(this).hasClass('SubMenu')){ 
+            $(this).addClass('SubMenuDisable');
+            $(this).removeClass('SubMenu');
+        }
+    }); 
+}
+
+function ap_mode_ungrayout()
+{
+    if(parent.$("#basic-int").hasClass("basic-menu-div-gray")){
+        parent.$("#basic-int").addClass('basic-menu-div');
+        parent.$("#basic-int").removeClass('basic-menu-div-gray');
+    } 
+
+    if(parent.$('#wizard').hasClass('noSubGrayLarge')){
+        parent.$('#wizard').addClass('noSubLarge');
+        parent.$('#wizard').removeClass('noSubGrayLarge');
+    } else if(parent.$('#wizard').hasClass('noSubGray')){
+        parent.$('#wizard').addClass('noSub');
+        parent.$('#wizard').removeClass('noSubGray');
+    } 
+    
+    parent.$('.SubMenuWDS').each(function(){
+        if($(this).hasClass('SubMenuLargeDisable')){
+            $(this).addClass('SubMenuLarge');
+            $(this).addClass('SubMenu');
+            $(this).addClass('Large');
+            $(this).removeClass('SubMenuLargeDisable');
+        }
+        else if($(this).hasClass('SubMenuDisable')){
+            $(this).addClass('SubMenu');
+            $(this).removeClass('SubMenuDisable');
+        }
+    });
+}
+
+function highLightMenu(title, subtitle)
+{
+    if(parent.load_page == 1 || !parent.load_page)
+        return false;
+        
+    var checkElement = parent.$('#'+title).next();  
+    parent.$("#first").hide();
+
+    if((checkElement.is('li')) && (!checkElement.is(':visible'))) 
+    { 
+        parent.$('.subHeader:visible').slideUp('fast');
+        checkElement.slideDown('normal');      
+        parent.$('.SubActive').addClass('Sub');
+        parent.$('.SubActive').removeClass('SubActive');
+        parent.$('#'+title).addClass('SubActive');
+        parent.$('#'+title).removeClass('Sub');
+    }
+       
+    if( !parent.$('#'+subtitle).hasClass('SubMenuDisable') && !parent.$('#'+subtitle).hasClass('SubMenuLargeDisable'))
+    {  
+        parent.$('.noSubActive').removeClass('noSubActive');
+        parent.$('.noSubActiveLarge').removeClass('noSubActiveLarge');
+        parent.$('.SubMenuActive').addClass('SubMenu');
+        parent.$('.SubMenuActive').removeClass('SubMenuActive');
+        parent.$('.SubMenuActiveLarge').addClass('SubMenuLarge');
+        parent.$('.SubMenuActiveLarge').addClass('SubMenu');
+        parent.$('.SubMenuActiveLarge').addClass('Large');
+        parent.$('.SubMenuActiveLarge').removeClass('SubMenuActiveLarge');
+        if(parent.$('#'+subtitle).hasClass('Large'))
+           parent.$('#'+subtitle).addClass('SubMenuActiveLarge');
+        else
+           parent.$('#'+subtitle).addClass('SubMenuActive');
+        parent.$('#'+subtitle).removeClass('SubMenu');
+        parent.$('#'+subtitle).removeClass('SubMenuLarge');
+
+     }
+     else
+     {     
+        return false;
+     }                           
+} 
+
+function get_browser()
+{
+	if(navigator.userAgent.indexOf("Navigator") != -1) 
+        return "Netscape";
+    else if(navigator.userAgent.indexOf("MSIE") != -1)
+		return "IE";
+	else if(navigator.userAgent.indexOf("Chrome") != -1 )
+		return "Chrome";//bug 21975:spec1.9-p228,[usb] the real links are different for different browsers
+	else if(navigator.userAgent.indexOf("Firefox") != -1)
+		return "Firefox";
+	else if(navigator.userAgent.indexOf("Safari") != -1 )
+		return "Safari";
+	else if(navigator.userAgent.indexOf("Camino") != -1) 
+		return "Camino"; 
+ 	else if(navigator.userAgent.indexOf("Gecko/") != -1)
+   		return "Gecko"; 
+	else if(navigator.userAgent.indexOf("Opera") != -1)
+		return "Opera";
+	else
+   		return "";		
+} 
+
+
+function setLanglistPosition()
+{
+    if(get_browser()=="Firefox")
+    {
+        if($('.tabs')[0].scrollHeight>40)
+        {
+            $('#lang_menu_li').css("position", "relative");
+            $('#lang_menu_li').css("top", "-35px");
+            $('#firmware-update').css("position", "relative");
+            $('#firmware-update').css("left", "-50px");
+        }
+        else
+        {
+            $('#lang_menu_li').css("position", "relative");
+            $('#lang_menu_li').css("top", "0px"); 
+            $('#firmware-update').css("position", "relative");
+            $('#firmware-update').css("left", "0px");            
+        }
+    }
+    else if(get_browser()=="IE")
+    {
+        if($('.tabs')[0].scrollHeight>40)
+        {
+            $('#lang_menu_li').css("position", "relative");
+            $('#lang_menu_li').css("top", "-43px");
+            $('#firmware-update').css("position", "relative");
+            $('#firmware-update').css("left", "0px");
+        }
+        else
+        {
+            
+            $('#lang_menu_li').css("position", "relative");
+            $('#lang_menu_li').css("top", "0px"); 
+            $('#firmware-update').css("position", "relative");
+            $('#firmware-update').css("left", "0px");            
+        }  
+    }
+}
+

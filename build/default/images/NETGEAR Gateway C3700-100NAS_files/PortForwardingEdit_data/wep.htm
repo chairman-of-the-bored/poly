@@ -1,0 +1,313 @@
+// ---------------------------- Start WEP functions
+var lastkeypressed = null;
+var keyTooBig = false;
+var keyTooBig_an = false;
+var mustbeHEX = false;
+var keysize;
+var keysize_an;
+var lastObj = null;
+var is_IE = navigator.userAgent.search("MSIE") > -1;
+if (document.layers) document.captureEvents(Event.KEYPRESS);
+    document.onkeypress = checkKey;
+    
+function checkKey(evt)
+{
+    evt = (evt) ? evt : ((window.event) ? window.event : null);
+    if (evt)
+    {
+        if (is_IE)
+        {
+            lastkeypressed = (evt.keyCode) ? evt.keyCode : null;
+        }
+        else
+        {
+            lastkeypressed = (evt.charCode) ? evt.charCode : (evt.which) ? evt.which : null;
+        }
+    }
+
+    var keyselected = false;
+    if(lastObj)
+    {
+        if (typeof lastObj.selectionStart == "number" && typeof lastObj.selectionEnd == "number")
+        {
+            keyselected = ((lastObj.selectionEnd - lastObj.selectionStart) != 0);
+        }
+        else
+        {
+            var start = 0, end = 0, normalizedValue, range, textInputRange, len, endRange;
+
+            range = document.selection.createRange();
+
+            if (range && range.parentElement() == lastObj) {
+                len = lastObj.value.length;
+                normalizedValue = lastObj.value.replace(/\r\n/g, "\n");
+
+                // Create a working TextRange that lives only in the input
+                textInputRange = lastObj.createTextRange();
+                textInputRange.moveToBookmark(range.getBookmark());
+
+                // Check if the start and end of the selection are at the very end
+                // of the input, since moveStart/moveEnd doesn't return what we want
+                // in those cases
+                endRange = lastObj.createTextRange();
+                endRange.collapse(false);
+
+                if (textInputRange.compareEndPoints("StartToEnd", endRange) > -1) {
+                    start = end = len;
+                } else {
+                    start = -textInputRange.moveStart("character", -len);
+                    start += normalizedValue.slice(0, start).split("\n").length - 1;
+
+                    if (textInputRange.compareEndPoints("EndToEnd", endRange) > -1) {
+                        end = len;
+                    } else {
+                        end = -textInputRange.moveEnd("character", -len);
+                        end += normalizedValue.slice(0, end).split("\n").length - 1;
+                    }
+                }
+            }
+
+            keyselected = ((end - start) != 0);
+        }
+    }
+
+    if (lastkeypressed && (lastkeypressed != 13) && (lastkeypressed != 8) && ( keyTooBig ) && (!keyselected) && (lastObj.name == document.activeElement.name))
+    {
+        keyTooBig = false;
+        alert("Maximum key length is  " + keysize + "  characters.");
+        chkSize(lastObj); // for NS 6/7
+        return false;
+    }
+    else if (lastkeypressed && (lastkeypressed != 13) && (lastkeypressed != 8) && ( keyTooBig_an ) && (!keyselected) && (lastObj.name == document.activeElement.name))
+    {
+        keyTooBig_an = false;
+        alert("Maximum key length is  " + keysize_an + "  characters.");
+        chkSize_an(lastObj); // for NS 6/7
+        return false;
+    }
+    else if (mustbeHEX) // not used here, don't know which input is being used
+    {
+        mustbeHEX = false;
+		lastkeypressed = (evt.keyCode) ? evt.keyCode : (evt.which ) ? evt.which : null;
+        if ( ((lastkeypressed > 47) && (lastkeypressed < 58 ))
+            || ((lastkeypressed > 96) && (lastkeypressed < 103))
+            || ((lastkeypressed > 64) && (lastkeypressed < 71 ))
+            || (lastkeypressed == 8)
+            || (lastkeypressed == 13) )
+            return true; // OK
+        else
+            return false;
+    }
+	
+    return true;
+}
+function chkSize(fobj)
+{
+    if(fobj.value.length > keysize)
+        fobj.value = fobj.value.substr(0,keysize);
+}
+function chkSize_an(fobj)
+{
+    if(fobj.value.length > keysize_an)
+        fobj.value = fobj.value.substr(0,keysize_an);
+}
+function keyCheck(fobj)
+{
+    lastObj = fobj;
+    keyTooBig = (fobj.value.length >= keysize ) ? true : false;
+}
+function keyCheck_an(fobj)
+{
+    lastObj = fobj;
+    keyTooBig_an = (fobj.value.length >= keysize_an) ? true : false;
+}
+function calcPassphrase(F)
+{
+    if(F.passphraseStr.value.length == 0)
+        return;
+    switch(F.wepenc.selectedIndex)
+    {
+        case 0:
+            PassPhrase40(F);
+            break;
+        case 1:
+            PassPhrase104(F);
+            break;
+        default:
+            break;
+    }
+}
+function PassPhrase40(F)
+{
+    var seed = 0;
+    var pseed = new Array(0, 0, 0, 0);
+    var pkey = new Array(4);
+    var asciiObj = new Array(4);
+    Length = F.passphraseStr.value.length;
+    if(Length != 0)
+    {
+        for (i=0; i<Length; i++ )
+            pseed[i%4] ^= F.passphraseStr.value.charCodeAt(i);
+        seed = pseed[0];
+        seed += pseed[1] << 8;
+        seed += pseed[2] << 16;
+        seed += pseed[3] << 24;
+    }
+    if(F.KEY1.style.display != "none")
+    {
+        F.KEY1.value = F.KEY2.value = "";
+        F.KEY3.value = F.KEY4.value = "";
+        pkey[0] = F.KEY1;
+        pkey[1] = F.KEY2;
+        pkey[2] = F.KEY3;
+        pkey[3] = F.KEY4;
+    }
+    else
+    {
+        F.KEY1Hidden.value = F.KEY2Hidden.value = "";
+        F.KEY3Hidden.value = F.KEY4Hidden.value = "";
+        pkey[0] = F.KEY1Hidden;
+        pkey[1] = F.KEY2Hidden;
+        pkey[2] = F.KEY3Hidden;
+        pkey[3] = F.KEY4Hidden;
+    }
+    for(j=0; j<4; j++)
+    {
+        for (i=0; i<5 ;i++ )
+        {
+            seed = (214013 * seed) & 0xffffffff;
+            if(seed & 0x80000000)
+                seed = (seed & 0x7fffffff) + 0x80000000 + 0x269ec3;
+            else
+                seed = (seed & 0x7fffffff) + 0x269ec3;
+            temp = ((seed >> 16) & 0xff);
+            if(temp < 0x10)
+                pkey[j].value += "0" + temp.toString(16).toUpperCase();
+            else
+                pkey[j].value += temp.toString(16).toUpperCase();
+        }
+    }
+    F.wep_key_no[0].checked = true;
+}
+function PassPhrase104(F)
+{
+    var pseed2 = "";
+    Length2 = F.passphraseStr.value.length;
+    var asciiObj = "";
+    for(p=0; p<64; p++)
+    {
+        tempCount = p % Length2;
+        pseed2 += F.passphraseStr.value.substring(tempCount, tempCount+1);
+    }
+    md5Str = calcMD5(pseed2);
+    if(F.KEY1.style.display != "none")
+    {
+        F.KEY1.value = md5Str.substring(0, 26).toUpperCase();
+        F.KEY2.value = F.KEY1.value;
+        F.KEY3.value = F.KEY1.value;
+        F.KEY4.value = F.KEY1.value;
+    }
+    else
+    {
+        F.KEY1Hidden.value = md5Str.substring(0, 26).toUpperCase();
+        F.KEY2Hidden.value = F.KEY1Hidden.value;
+        F.KEY3Hidden.value = F.KEY1Hidden.value;
+        F.KEY4Hidden.value = F.KEY1Hidden.value;
+    }
+    F.wep_key_no[0].checked = true;
+}
+function calcPassphrase_an(F)
+{
+    if(F.passphraseStr_an.value.length == 0)
+        return;
+    switch(F.wepenc_an.selectedIndex)
+    {
+        case 0:
+            PassPhrase40_an(F);
+            break;
+        case 1:
+            PassPhrase104_an(F);
+            break;
+        default:
+            break;
+    }
+}
+function PassPhrase40_an(F)
+{
+    var seed = 0;
+    var pseed = new Array(0, 0, 0, 0);
+    var pkey = new Array(4);
+    var asciiObj = new Array(4);
+    Length = F.passphraseStr_an.value.length;
+    if(Length != 0)
+    {
+        for (i=0; i<Length; i++ )
+            pseed[i%4] ^= F.passphraseStr_an.value.charCodeAt(i);
+        seed = pseed[0];
+        seed += pseed[1] << 8;
+        seed += pseed[2] << 16;
+        seed += pseed[3] << 24;
+    }
+    if(F.KEY1_an.style.display != "none")
+    {
+        F.KEY1_an.value = F.KEY2_an.value = "";
+        F.KEY3_an.value = F.KEY4_an.value = "";
+        pkey[0] = F.KEY1_an;
+        pkey[1] = F.KEY2_an;
+        pkey[2] = F.KEY3_an;
+        pkey[3] = F.KEY4_an;
+    }
+    else
+    {
+        F.KEY1Hidden_an.value = F.KEY2Hidden_an.value = "";
+        F.KEY3Hidden_an.value = F.KEY4Hidden_an.value = "";
+        pkey[0] = F.KEY1Hidden_an;
+        pkey[1] = F.KEY2Hidden_an;
+        pkey[2] = F.KEY3Hidden_an;
+        pkey[3] = F.KEY4Hidden_an;
+    }
+    for(j=0; j<4; j++)
+    {
+        for (i=0; i<5 ;i++ )
+        {
+            seed = (214013 * seed) & 0xffffffff;
+            if(seed & 0x80000000)
+                seed = (seed & 0x7fffffff) + 0x80000000 + 0x269ec3;
+            else
+                seed = (seed & 0x7fffffff) + 0x269ec3;
+            temp = ((seed >> 16) & 0xff);
+            if(temp < 0x10)
+                pkey[j].value += "0" + temp.toString(16).toUpperCase();
+            else
+                pkey[j].value += temp.toString(16).toUpperCase();
+        }
+    }
+    F.wep_key_no_an[0].checked = true;
+}
+function PassPhrase104_an(F)
+{
+    var pseed2 = "";
+    Length2 = F.passphraseStr_an.value.length;
+    var asciiObj = "";
+    for(p=0; p<64; p++)
+    {
+        tempCount = p % Length2;
+        pseed2 += F.passphraseStr_an.value.substring(tempCount, tempCount+1);
+    }
+    md5Str = calcMD5(pseed2);
+    if(F.KEY1_an.style.display != "none")
+    {
+        F.KEY1_an.value = md5Str.substring(0, 26).toUpperCase();
+        F.KEY2_an.value = F.KEY1_an.value;
+        F.KEY3_an.value = F.KEY1_an.value;
+        F.KEY4_an.value = F.KEY1_an.value;
+    }
+    else
+    {
+        F.KEY1Hidden_an.value = md5Str.substring(0, 26).toUpperCase();
+        F.KEY2Hidden_an.value = F.KEY1Hidden_an.value;
+        F.KEY3Hidden_an.value = F.KEY1Hidden_an.value;
+        F.KEY4Hidden_an.value = F.KEY1Hidden_an.value;
+    }
+    F.wep_key_no_an[0].checked = true;
+}

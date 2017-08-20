@@ -1,0 +1,168 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+--><link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="shared-styles.html">
+
+<link rel="import" href="../bower_components/paper_fab.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/iron-collapse/iron-collapse.html">
+<link rel="import" href="../bower_components/app-layout/app-box/app-box.html">
+<link rel="import" href="../bower_components/app_layout/app_scroll_effects/effects/parallax_background.html">
+
+<dom-module id="iojkn-page">
+  <template>
+  <style is="custom-style">
+      #new {
+        margin-left: 77%;
+        color: purple;
+      }
+      body {
+        margin: 0;
+        font-family: 'Roboto', 'Noto', sans-serif;
+        background-color: #0453;
+      }
+      app-box {
+        height: 640px;
+        --app-box-background-front-layer: {
+          background-image: url(../images/bak1.jpg);
+          background-position: bottom;
+          padding-bottom: 120px;
+          margin-top: 0px;
+          height: 100%;
+        };
+      }
+      paper-fab {
+        position: fixed;
+        left: 16px;
+        top: 16px;
+        --paper-fab-background: purple;
+        --paper-fab-keyboard-focus-background: #EFDB2B;
+        color: red;
+      }
+      .second {
+        --app-box-background-front-layer: {
+          background-image: url(../images/bak2.jpg);
+          background-position: bottom;
+          padding-bottom: 120px;
+          margin-top: -20px;
+          height: 100%;
+        };
+      }
+      .third {
+        --app-box-background-front-layer: {
+          background-image: url(../images/bak3.jpg);
+          background-position: bottom;
+          padding-bottom: 120px;
+          margin-top: -20px;
+          height: 100%;
+        };
+      }
+      .fourth {
+        --app-box-background-front-layer: {
+          background-image: url(../images/bak4.jpg);
+          background-position: bottom;
+          padding-bottom: 120px;
+          margin-top: -20px;
+          height: 100%;
+        };
+      }
+      article {
+        font-weight: 100;
+        text-align: center;
+        margin: 100px auto;
+      }
+      article h2 {
+        font-weight: 100;
+        font-size: 50px;
+        text-align: center;
+        margin: 5px;
+      }
+      article p {
+        font-size: 18px;
+        line-height: 30px;
+        text-align: center;
+      }
+      hr {
+        width: 777px;
+        height: 12px;
+        border: none;
+        background-color: purple;
+        text-align: center;
+      }
+  </style>
+
+
+
+<paper-fab icon="add" class="label" label="😻"></paper-fab>
+<a id="new" href="/random-name"><paper-button raised="">Check Out The Random Name Generator</paper-button></a>
+<section>
+ <article>
+   <hr>
+   <h2>IOJKN</h2>
+   <p>IOJKN is a place for projects, programming languages, and ideas.</p>
+
+ </article>
+
+ <app-box effects="parallax-background">
+   <!--
+     app-box allows to style the mixin `--app-box-background-front-layer` or create a custom background in the light DOM.
+     In this case, we create a custom background by adding the attribute `background` to the `img` in
+     the light DOM.
+   -->
+
+ </app-box>
+</section>
+
+<hr on-click="toggle">
+<iron-collapse id="collapse">
+<section>
+ <article>
+
+   <h2>Projects</h2>
+   <p>Things that dont work yet but are still considered awesome</p>
+ </article>
+ <!--
+   This app-box uses the class `.second` and the mixin `--app-box-background-front-layer` to assign the background image.
+ -->
+ <app-box class="second" effects="parallax-background"></app-box>
+</section>
+</iron-collapse>
+
+
+<section>
+
+ <article>
+   <hr>
+   <h2>Programming Languages</h2>
+   <p>Where would we be without them.</p>
+ </article>
+ <app-box class="third" effects="parallax-background"></app-box>
+</section>
+
+<section>
+ <article>
+   <hr>
+   <h2>Keep Scrolling</h2>
+   <p>The good stuff is at the bottom.</p>
+ </article>
+ <app-box class="fourth" effects="parallax-background"></app-box>
+</section>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'iojkn-page',
+
+      toggle: function() {
+  this.$.collapse.toggle();
+}
+
+    });
+  </script>
+</dom-module>
